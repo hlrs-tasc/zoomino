@@ -43,6 +43,9 @@ def main():
             show_user(client, args.user)
         elif args.command == "list":
             show_all_users(client)
+        elif args.command == "unassign":
+            zoom_set_user_type(client, args.user, BASIC)
+            show_user(client, args.user)
         elif args.command == "assign":
             users = zoom_get_all_users(client)
             target = args.user
@@ -53,18 +56,11 @@ def main():
 
             source = args.source
             if source == None:
-                license_count = 0
-                for user in users:
-                    if user['type'] == LICENSED:
-                        source = user['email']
-                        license_count += 1
+                zoom_set_user_type(client, target, LICENSED)
+                show_user(client, target)
+                return
 
-                if license_count == 0:
-                    abort("no license found - please purchase a Zoom license first")
-                elif license_count > 1:
-                    abort("found multiple licenses - you need to specify which one using `--from`")
             source_user = get_user(users, source)
-
             if source_user['type'] != LICENSED:
                 abort(f"user '{source}' does not have a license")
 
@@ -76,7 +72,7 @@ def main():
 
 def parse_arguments(user_email):
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['show', 'assign', 'list'],
+    parser.add_argument('command', choices=['show', 'assign', 'list', 'unassign'],
             help="Action to take",
             nargs='?',
             default="show")
@@ -149,7 +145,11 @@ def zoom_get_users_by_type(client, user_type=LICENSED):
 def zoom_set_user_type(client, user_id, user_type):
     response = client.user.update(id=user_id, type=user_type)
     if response.status_code != 204:
-        abort(f"could not update user '{user_id}' to type '{user_type}'")
+        if user_type == LICENSED:
+            suggestion = " (maybe no unused licenses available?)"
+        else:
+            suggestion = ""
+        abort(f"could not update user '{user_id}' to type '{user_types[user_type]}'{suggestion}")
     return None
 
 

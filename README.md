@@ -28,6 +28,7 @@ Zoomino provides several commands:
 * [**show**](#command-show): Show information about a single user (default: yourself).
 * [**list**](#command-list): List all users in the Zoom account.
 * [**assign**](#command-assign): Assign a license to another user (default: to yourself).
+* [**unassign**](#command-unassign): Release the license currently assigned to a user (default: from yourself).
 
 ### Command `show`
 Show basic information on a user, i.e., their name, email address, and license
@@ -58,7 +59,7 @@ by providing their email address as a second positional argument, e.g.,
 ```shell
 zoomino.py assign walter@example.com
 ```
-If the account has multiple paid licenses, you also need to specify from which
+If no license is currently unassigned, you also need to specify from which
 user you want to transfer the license. For example, to transfer the license from
 `michael@example.com` to `walter@example.com`, execute
 ```bash
@@ -70,6 +71,23 @@ will be shown:
 name:  Walter White
 email: walter@example.com
 type:  Licensed
+```
+
+### Command `unassign`
+Release the paid license currently assigned to a given user. By default, the
+license is released from yourself, i.e., the user identified by the email
+address in the credentials file. Optionally, you can also specify a user whose
+license should be released by providing their email address as a second
+positional argument, e.g.,
+```shell
+zoomino.py unassign walter@example.com
+```
+Upon success, the basic information of the user with the removed license
+will be shown:
+```
+name:  Walter White
+email: walter@example.com
+type:  Basic
 ```
 
 ## Installation
