@@ -92,16 +92,15 @@ type:  Basic
 
 ## Installation
 
-Zoomino requires at least Python 3.6 and uses the `zoomus` package,
+Zoomino requires at least Python 3.6 and uses the Zoomus and PyJWT packages,
 which can be installed via `pip3` using
 ```shell
-pip3 install zoomus
+pip3 install zoomus PyJWT
 ```
-Zoomus itself uses the PyJWT package internally. On some systems, PyJWT is
-installed but with an older version, while Zoomus requires at least v2.0.0 to
-work correctly. Zoomino will try to detect an older version and warn you about
-it; in this case, you can upgrade your PyJWT package to the latest version by
-executing
+On some systems, PyJWT is installed with an older version, even though Zoomus requires
+at least v2.0.0 to work correctly. Zoomino will try to detect an older version
+and warn you about it; in this case, you can upgrade your PyJWT package to the
+latest version by executing
 ```shell
 pip3 install --upgrade PyJWT
 ```
