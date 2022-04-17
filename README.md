@@ -121,6 +121,10 @@ Finally, get the `zoomino.py` file, e.g., by cloning this repository
 ```shell
 git clone git@github.com:hlrs-tasc/zoomino.git
 ```
+or use `curl`
+```shell
+curl -JLO https://github.com/hlrs-tasc/zoomino/raw/main/zoomino.py
+```
 and put the file somewhere on your `PATH`.
 
 
