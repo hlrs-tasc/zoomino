@@ -63,7 +63,7 @@ If no license is currently unassigned, you also need to specify from which
 user you want to transfer the license. For example, to transfer the license from
 `michael@example.com` to `walter@example.com`, execute
 ```bash
-zoomino.py assign --from michael@example.com walter.example.com
+zoomino.py --from michael@example.com assign walter@example.com
 ```
 Upon success, the basic information of the user with the newly assigned license
 will be shown:
