@@ -17,9 +17,10 @@ zoomino.py
 If everything is set up correctly, it will by default show the status of your
 user, i.e., something like this:
 ```
-name:  Michael Schlottke-Lakemper
-email: michael@example.com
-type:  Basic
+name:     Michael Schlottke-Lakemper
+email:    michael@example.com
+type:     Basic
+host key: 987654
 ```
 There are two user types supported: *Basic* users with a free license
 and *Licensed* users with a paid license.
@@ -40,9 +41,10 @@ zoomino.py show walter@example.com
 ```
 which gives you an output similar to the following:
 ```
-name:  Walter White
-email: walter@example.com
-type:  Licensed
+name:     Walter White
+email:    walter@example.com
+type:     Licensed
+host key: 123456
 ```
 
 ### Command `list`
@@ -68,9 +70,10 @@ zoomino.py --from michael@example.com assign walter@example.com
 Upon success, the basic information of the user with the newly assigned license
 will be shown:
 ```
-name:  Walter White
-email: walter@example.com
-type:  Licensed
+name:     Walter White
+email:    walter@example.com
+type:     Licensed
+host key: 123456
 ```
 
 ### Command `unassign`
@@ -85,9 +88,10 @@ zoomino.py unassign walter@example.com
 Upon success, the basic information of the user with the removed license
 will be shown:
 ```
-name:  Walter White
-email: walter@example.com
-type:  Basic
+name:     Walter White
+email:    walter@example.com
+type:     Basic
+host key: 123456
 ```
 
 ## Installation
