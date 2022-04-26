@@ -102,13 +102,14 @@ def show_user(client, user_id):
 
 
 def print_user(user):
-    print("name: ", user['first_name'], user['last_name'])
-    print("email:", user['email'])
-    print("type: ", user_types[user['type']])
+    print("name:    ", user['first_name'], user['last_name'])
+    print("email:   ", user['email'])
+    print("type:    ", user_types[user['type']])
+    print("host key:", user['host_key'])
 
 
 def zoom_get_all_users(client):
-    response = client.user.list()
+    response = client.user.list(include_fields="host_key")
     if response.status_code != 200:
         abort(f"could not retrieve user list")
 
