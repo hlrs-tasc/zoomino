@@ -101,7 +101,7 @@ List basic information for all *upcoming* meetings in the account by executing
 ```shell
 zoomino.py list-meetings
 ```
-This will show all meetings for *all users* in ascending order, e.g.
+This will show the meetings for *all users* in ascending order, e.g.,
 ```
 topic:    Test-Meeting
 start:    2022-04-28T08:00:00Z

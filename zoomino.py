@@ -144,10 +144,10 @@ def print_meeting(meeting, user=None):
         duration = "{:02d}:{:02d}h".format(hours, minutes)
     elif meeting["type"] == INSTANT:
         start_time = "Instant meeting"
-        duration = "Instant meeting"
+        duration = "-"
     else:
         start_time = "Recurring meeting"
-        duration = "Recurring meeting"
+        duration = "-"
 
     print("topic:   ", meeting["topic"])
     print("start:   ", start_time)
