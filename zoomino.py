@@ -13,6 +13,14 @@ BASIC = 1
 LICENSED = 2
 user_types = {BASIC: "Basic", LICENSED: "Licensed"}
 
+INSTANT = 1
+SCHEDULED = 2
+RECURRING_NO_FIXED_TIME = 3
+RECURRING_FIXED_TIME = 8
+meeting_types = {INSTANT: "Instant meeting", SCHEDULED: "Scheduled meeting",
+                 RECURRING_NO_FIXED_TIME: "Recurring meeting with no fixed time",
+                 RECURRING_FIXED_TIME: "Recurring meeting with fixed time"}
+
 
 def main():
     # Verify JWT version
@@ -68,16 +76,18 @@ def main():
             zoom_set_user_type(client, target, LICENSED)
 
             show_user(client, target)
+        elif args.command == "list-meetings":
+            show_all_meetings(client)
 
 
 def parse_arguments(user_email):
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['show', 'assign', 'list', 'unassign'],
+    parser.add_argument('command', choices=['show', 'assign', 'list', 'unassign', 'list-meetings'],
             help="Action to take",
             nargs='?',
             default="show")
     parser.add_argument('user', nargs='?', default=user_email,
-            help="User to take action on (ignored for 'list' command).")
+            help="User to take action on (ignored for 'list' and 'list-meetings').")
     parser.add_argument('--from', '-f', dest="source",
             help="Required when multiple source users are available.")
     args = parser.parse_args()
@@ -115,6 +125,63 @@ def zoom_get_all_users(client):
 
     user_list = json.loads(response.content)
     return user_list['users']
+
+
+def zoom_get_all_meetings(client, meeting_type="upcoming", user_id="me"):
+    response = client.meeting.list(user_id=user_id, type=meeting_type)
+    if response.status_code != 200:
+        abort(f"could not retrieve meetings list")
+
+    meeting_list = json.loads(response.content)
+    return meeting_list['meetings']
+
+
+def print_meeting(meeting, user=None):
+    if meeting["type"] == SCHEDULED or meeting["type"] == RECURRING_FIXED_TIME:
+        start_time = meeting["start_time"]
+        hours = int(meeting["duration"]) // 60
+        minutes = int(meeting["duration"]) - 60*hours
+        duration = "{:02d}:{:02d}h".format(hours, minutes)
+    elif meeting["type"] == INSTANT:
+        start_time = "Instant meeting"
+        duration = "Instant meeting"
+    else:
+        start_time = "Recurring meeting"
+        duration = "Recurring meeting"
+
+    print("topic:   ", meeting["topic"])
+    print("start:   ", start_time)
+    print("duration:", duration)
+    if user:
+        print("user:    ", user)
+    print("url:     ", meeting["join_url"])
+
+
+def show_all_meetings(client):
+    users = zoom_get_all_users(client)
+    first = True
+    all_meetings = []
+    for user in users:
+        meetings = zoom_get_all_meetings(client, user_id=user['email'])
+        for i, _ in enumerate(meetings):
+            meetings[i]['user_first_name'] = user['first_name']
+            meetings[i]['user_last_name'] = user['last_name']
+            meetings[i]['user_email'] = user['email']
+            meetings[i]['user_host_key'] = user['host_key']
+            meetings[i]['user_type'] = user_types[user['type']]
+        all_meetings.extend(meetings)
+
+    # The 'Z' ensures that all meetings without start time are listed last
+    sorted_meetings = sorted(all_meetings, key=lambda x: (x.get('start_time', 'Z'), x['topic']))
+
+    for meeting in sorted_meetings:
+        if first:
+            first = False
+        else:
+            print()
+        print_meeting(meeting, user="{} {} ({}, {}, {})".format(meeting['user_first_name'],
+                meeting['user_last_name'], meeting['user_email'], meeting['user_host_key'],
+                meeting['user_type']))
 
 
 def get_user(users, user_id):

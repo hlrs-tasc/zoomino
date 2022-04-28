@@ -1,7 +1,8 @@
 # Zoomino
-Zoomino is a Python script to easily (re-)assign Zoom licenses in a joint Zoom
+Zoomino is a Python script to easily manage Zoom licenses in a joint Zoom
 account, where there are fewer licenses available than users. This works only
 with a Zoom account with at least one paid license and multiple users (free or paid).
+Additionally, basic meeting management is available.
 
 **Note:** Zoomino is based on *cooperative* use. Since there are no
 authorization mechanisms beyond basic authentication, it relies on users not
@@ -30,6 +31,7 @@ Zoomino provides several commands:
 * [**list**](#command-list): List all users in the Zoom account.
 * [**assign**](#command-assign): Assign a license to another user (default: to yourself).
 * [**unassign**](#command-unassign): Release the license currently assigned to a user (default: from yourself).
+* [**list-meetings**](#command-list-meetings): List all upcoming and recurring meetings.
 
 ### Command `show`
 Show basic information on a user, i.e., their name, email address, and license
@@ -93,6 +95,31 @@ email:    walter@example.com
 type:     Basic
 host key: 123456
 ```
+
+### Command `list-meetings`
+List basic information for all *upcoming* meetings in the account by executing
+```shell
+zoomino.py list-meetings
+```
+This will show all meetings for *all users* in ascending order, e.g.
+```
+topic:    Test-Meeting
+start:    2022-04-28T08:00:00Z
+duration: 01:00h
+user:     Walter White (walter@example.com, 123456, Basic)
+url:      https://us06web.zoom.us/j/12345678901?pwd=12345678901234567890123456789012
+
+topic:    Indefinitely
+start:    Recurring meeting
+duration: Recurring meeting
+user:     Walter White (walter@example.com, 123456, Basic)
+url:      https://us06web.zoom.us/j/23456789012?pwd=23456789012345678901234567890123
+```
+Meetings without starting time (e.g., recurring meetings without fixed time)
+will be listed last. The meeting information also contains information on the user who
+created the meeting, including their email address, host key, and current
+license type.
+
 
 ## Installation
 
