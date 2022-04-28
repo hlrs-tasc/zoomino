@@ -111,7 +111,7 @@ url:      https://us06web.zoom.us/j/12345678901?pwd=1234567890123456789012345678
 
 topic:    Indefinitely
 start:    Recurring meeting
-duration: Recurring meeting
+duration: -
 user:     Walter White (walter@example.com, 123456, Basic)
 url:      https://us06web.zoom.us/j/23456789012?pwd=23456789012345678901234567890123
 ```
