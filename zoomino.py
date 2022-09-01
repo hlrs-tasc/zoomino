@@ -115,11 +115,10 @@ def print_user(user):
     print("name:    ", user['first_name'], user['last_name'])
     print("email:   ", user['email'])
     print("type:    ", user_types[user['type']])
-    print("host key:", user['host_key'])
 
 
 def zoom_get_all_users(client):
-    response = client.user.list(include_fields="host_key")
+    response = client.user.list()
     if response.status_code != 200:
         abort(f"could not retrieve user list")
 
@@ -167,7 +166,6 @@ def show_all_meetings(client):
             meetings[i]['user_first_name'] = user['first_name']
             meetings[i]['user_last_name'] = user['last_name']
             meetings[i]['user_email'] = user['email']
-            meetings[i]['user_host_key'] = user['host_key']
             meetings[i]['user_type'] = user_types[user['type']]
         all_meetings.extend(meetings)
 
@@ -180,7 +178,7 @@ def show_all_meetings(client):
         else:
             print()
         print_meeting(meeting, user="{} {} ({}, {}, {})".format(meeting['user_first_name'],
-                meeting['user_last_name'], meeting['user_email'], meeting['user_host_key'],
+                meeting['user_last_name'], meeting['user_email'],
                 meeting['user_type']))
 
 
