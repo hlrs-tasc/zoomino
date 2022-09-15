@@ -177,7 +177,7 @@ def show_all_meetings(client):
             first = False
         else:
             print()
-        print_meeting(meeting, user="{} {} ({}, {}, {})".format(meeting['user_first_name'],
+        print_meeting(meeting, user="{} {} ({}, {})".format(meeting['user_first_name'],
                 meeting['user_last_name'], meeting['user_email'],
                 meeting['user_type']))
 
