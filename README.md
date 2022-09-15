@@ -8,6 +8,11 @@ Additionally, basic meeting management is available.
 authorization mechanisms beyond basic authentication, it relies on users not
 abusing their powers.
 
+**Update 2022-09-01:** Due to a restriction in the Zoom API, it is not possible
+to retrieve a user's host key via the API anymore. See also
+[here](https://devforum.zoom.us/t/alternatives-to-using-the-host-key/74422) for
+more information.
+
 
 ## Usage
 After completing the [installation instructions](#installation), just execute
@@ -21,7 +26,6 @@ user, i.e., something like this:
 name:     Michael Schlottke-Lakemper
 email:    michael@example.com
 type:     Basic
-host key: 987654
 ```
 There are two user types supported: *Basic* users with a free license
 and *Licensed* users with a paid license.
@@ -46,7 +50,6 @@ which gives you an output similar to the following:
 name:     Walter White
 email:    walter@example.com
 type:     Licensed
-host key: 123456
 ```
 
 ### Command `list`
@@ -75,7 +78,6 @@ will be shown:
 name:     Walter White
 email:    walter@example.com
 type:     Licensed
-host key: 123456
 ```
 
 ### Command `unassign`
@@ -93,7 +95,6 @@ will be shown:
 name:     Walter White
 email:    walter@example.com
 type:     Basic
-host key: 123456
 ```
 
 ### Command `list-meetings`
@@ -117,7 +118,7 @@ url:      https://us06web.zoom.us/j/23456789012?pwd=2345678901234567890123456789
 ```
 Meetings without starting time (e.g., recurring meetings without fixed time)
 will be listed last. The meeting information also contains information on the user who
-created the meeting, including their email address, host key, and current
+created the meeting, including their email address and current
 license type.
 
 
