@@ -161,9 +161,9 @@ and put the file somewhere on your `PATH`.
 
 ## Authors
 Zoomino was initiated by
-[Michael Schlottke-Lakemper](https://www.hlrs.de/about-us/organization/people/person/schlottke-lakemper/)
+[Michael Schlottke-Lakemper](https://www.hlrs.de/people/michael-schlottke-lakemper)
 and is based on ideas in a previous implementation by
-[Oleksandr Shcherbakov](https://www.hlrs.de/about-us/organization/people/person/shcherbakov/)
+[Oleksandr Shcherbakov](https://www.hlrs.de/people/oleksandr-shcherbakov)
 (both from HLRS, University of Stuttgart).
 
 
