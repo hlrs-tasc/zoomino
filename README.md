@@ -1,4 +1,8 @@
 # Zoomino
+**Note: zoomino.py is deprecated, since all JWT apps have been deactivated by ZOOM. You may find more information [here](/https://developers.zoom.us/docs/internal-apps/jwt-app-migration/).**
+
+----
+
 Zoomino is a Python script to easily manage Zoom licenses in a joint Zoom
 account, where there are fewer licenses available than users. This works only
 with a Zoom account with at least one paid license and multiple users (free or paid).
