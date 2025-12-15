@@ -1,5 +1,5 @@
 # Zoomino
-**Note: zoomino.py is deprecated, since all JWT apps have been deactivated by ZOOM. You may find more information [here](/https://developers.zoom.us/docs/internal-apps/jwt-app-migration/).**
+**Note: zoomino.py is deprecated, since all JWT apps have been deactivated by ZOOM.**
 
 ----
 
